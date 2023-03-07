@@ -1,6 +1,15 @@
 <?php
-include "koneksi.php";
+    include   "koneksi.php";
+    if(isset($_GET['NOMED_PASIEN'])){
+        $NOMED_PASIEN=$_GET['NOMED_PASIEN'];
+    }
+    else {
+        die ("Tidak Ada Data Yang Dipilih!");    
+    }
+    $query      =mysqli_query($koneksi, "SELECT * FROM billing WHERE NOMED_PASIEN=$NOMED_PASIEN");
+    $result     =mysqli_fetch_array($query);
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -10,27 +19,16 @@ include "koneksi.php";
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" href="images/hesti.png" type="image/ico" />
-
-    <title>RS TK II 02.05.01 dr. AK GANI</title>
+    <title>RS TK II 02.05.01 dr. AK Gani </title>
 
     <!-- Bootstrap -->
-    <link href="cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
     <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
     <link href="../vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
     <!-- NProgress -->
     <link href="../vendors/nprogress/nprogress.css" rel="stylesheet">
-    <!-- iCheck -->
-    <link href="../vendors/iCheck/skins/flat/green.css" rel="stylesheet">
-    <!-- Datatables -->
     
-    <link href="../vendors/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet">
-    <link href="../vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css" rel="stylesheet">
-    <link href="../vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css" rel="stylesheet">
-    <link href="../vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css" rel="stylesheet">
-    <link href="../vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css" rel="stylesheet">
-
-    <!-- Custom Theme Style -->
+    <!-- Custom styling plus plugins -->
     <link href="../build/css/custom.min.css" rel="stylesheet">
   </head>
 
@@ -40,7 +38,7 @@ include "koneksi.php";
         <div class="col-md-3 left_col">
           <div class="left_col scroll-view">
             <div class="navbar nav_title" style="border: 0;">
-              <a href="index.html" class="site_title"><i class="fa fa-hospital-o"></i> <span>Hallo Users</span></a>
+              <a href="index.html" class="site_title"><i class="fa fa-hospital-o"></i> <span>Helo Users</span></a>
             </div>
 
             <div class="clearfix"></div>
@@ -51,8 +49,8 @@ include "koneksi.php";
                 <img src="images/hesti.png" alt="..." class="img-circle profile_img">
               </div>
               <div class="profile_info">
-                <span>RS TK II 02.05.01</span>
-                <h2>dr. AK Gani </h2>
+                <span>RS TK II 02.05.01 </span>
+                <h2>dr. AK Gani</h2>
               </div>
             </div>
             <!-- /menu profile quick info -->
@@ -64,7 +62,7 @@ include "koneksi.php";
               <div class="menu_section">
                 <h3>General</h3>
                 <ul class="nav side-menu">
-                  <li><a><i class="fa fa-table"></i> Billing </a>
+                  <li><a href="obat.php"><i class="fa fa-table"></i> Billing </a>
                     <ul class="nav child_menu">
                       <!-- <li><a href="tables.html">Tables</a></li> -->
                       <!-- <li><a href="tables_dynamic.html">Table Billing</a></li> -->
@@ -104,82 +102,12 @@ include "koneksi.php";
                 <nav class="nav navbar-nav">
                 <ul class=" navbar-right">
                   <li class="nav-item dropdown open" style="padding-left: 15px;">
-                    <a href="javascript:;" class="user-profile dropdown-toggle">
+                    <a href="javascript:;" class="user-profile dropdown-toggle" aria-haspopup="true" id="navbarDropdown" data-toggle="dropdown" aria-expanded="false">
                       <img src="images/hesti.png" alt="">Users
-                    <!-- </a>
-                    <div class="dropdown-menu dropdown-usermenu pull-right" aria-labelledby="navbarDropdown">
-                      <a class="dropdown-item"  href="javascript:;"> Profile</a>
-                        <a class="dropdown-item"  href="javascript:;">
-                          <span class="badge bg-red pull-right">50%</span>
-                          <span>Settings</span>
-                        </a>
-                    <a class="dropdown-item"  href="javascript:;">Help</a>
-                      <a class="dropdown-item"  href="login.html"><i class="fa fa-sign-out pull-right"></i> Log Out</a>
-                    </div> -->
-                  </li>
-  
-                  <li role="presentation" class="nav-item dropdown open">
-                    <a href="javascript:;" class="dropdown-toggle info-number" id="navbarDropdown1" data-toggle="dropdown" aria-expanded="false">
-                      <i class="fa fa-envelope-o"></i>
-                      <!-- <span class="badge bg-green">6</span> -->
                     </a>
-                    <!-- <ul class="dropdown-menu list-unstyled msg_list" role="menu" aria-labelledby="navbarDropdown1">
-                      <!-- <li class="nav-item">
-                        <a class="dropdown-item">
-                          <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
-                          <span>
-                            <span>John Smith</span>
-                            <span class="time">3 mins ago</span>
-                          </span>
-                          <span class="message">
-                            Film festivals used to be do-or-die moments for movie makers. They were where...
-                          </span>
-                        </a>
-                      </li>
-                      <li class="nav-item">
-                        <a class="dropdown-item">
-                          <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
-                          <span>
-                            <span>John Smith</span>
-                            <span class="time">3 mins ago</span>
-                          </span>
-                          <span class="message">
-                            Film festivals used to be do-or-die moments for movie makers. They were where...
-                          </span>
-                        </a>
-                      </li>
-                      <li class="nav-item">
-                        <a class="dropdown-item">
-                          <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
-                          <span>
-                            <span>John Smith</span>
-                            <span class="time">3 mins ago</span>
-                          </span>
-                          <span class="message">
-                            Film festivals used to be do-or-die moments for movie makers. They were where...
-                          </span>
-                        </a>
-                      </li>
-                      <li class="nav-item">
-                        <a class="dropdown-item">
-                          <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
-                          <span>
-                            <span>John Smith</span>
-                            <span class="time">3 mins ago</span>
-                          </span>
-                          <span class="message">
-                            Film festivals used to be do-or-die moments for movie makers. They were where...
-                          </span>
-                        </a>
-                      </li> -->
-                      <!-- <li class="nav-item">
-                        <div class="text-center">
-                          <a class="dropdown-item">
-                            <strong>See All Alerts</strong>
-                            <i class="fa fa-angle-right"></i>
-                          </a>
-                        </div>
-                      </li> -->
+                  </li>
+                  <li role="presentation" class="nav-item dropdown open">
+                    <ul class="dropdown-menu list-unstyled msg_list" role="menu" aria-labelledby="navbarDropdown1">
                     </ul>
                   </li>
                 </ul>
@@ -200,7 +128,7 @@ include "koneksi.php";
             <div class="clearfix"></div>
 
             <div class="row">
-              <div class="col-md-12 col-sm-12 ">
+              <div class="col-md-12">
                 <div class="x_panel">
                   <div class="x_title">
                     <h2>INPUT BILLING OBAT <small></small></h2>
@@ -220,63 +148,94 @@ include "koneksi.php";
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">
+                    <section class="content invoice">
+                      <div class="row invoice-info">
+                        <div class="col-sm-4 invoice-col">
+                          <address>
+                                          <strong>No Rekam Medis</strong> <br>
+                                          <strong>Nama Pasien</strong> <br>
+                                          <strong>Tanggal Lahir</strong> <br>
+                                          <strong>Unit</strong> <br>
+                                          <strong>Waktu Kunjungan</strong> <br>
+                                          <strong>DPJP</strong>
+                                          
+                                      </address>
+                        </div>
+                        <!-- /.col -->
+                        <div class="col-sm-4 invoice-col">
+                        <strong><?php echo $result['NOMED_PASIEN']?></strong><br>
+                        <strong><?php echo $result['NAMA_PASIEN']?></strong><br>
+                        <strong><?php echo $result['TANGGAL_LAHIR']?></strong><br>
+                        <strong><?php echo $result['NAMA_UNIT']?></strong><br>
+                        <strong><?php echo $result['WAKTU_KUNJUNGAN']?></strong><br>
+                        <strong><?php echo $result['NAMA_DOKTER']?></strong><br>                   
+                        </div>
+                      </div>
+                      <!-- /.row -->
+
+                      <!-- Table row -->
                       <div class="row">
-                          <div class="col-sm-12">
-                            <div class="card-box table-responsive">
-                    <!-- <p class="text-muted font-13 m-b-30">
-                      DataTables has most features enabled by default, so all you need to do to use it with your own tables is to call the construction function: <code>$().DataTable();</code>
-                    </p> -->
-                    <table id="datatable" class="table table-striped table-bordered" style="width:100%">
-                      <thead>
-                        <tr>
-                          <th>No</th>
-                          <th>No Rekam Medis</th>
-                          <th>Nama Pasien</th>
-                          <th>Tanggal Lahir</th>
-                          <th>Waktu Kunjungan</th>
-                          <th>unit</th>
-                          <th>DPJP</th>
-                          <th>AKSI</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <?php
-                        $No = 1;
-                        $obat = mysqli_query($koneksi,"SELECT * FROM billing");
-                        while($row = mysqli_fetch_array($obat)) { 
-                          ?>
-                          <tr>
-                          <td><?php echo $No++; ?></td>
-                          <td><?php echo $row['ID_PASIEN'];?></td>
-                          <td><?php echo $row['NAMA_PASIEN'];?></td>
-                          <td><?php echo $row['TANGGAL_LAHIR'];?></td>
-                          <td><?php echo $row['WAKTU_KUNJUNGAN'];?></td>
-                          <td><?php echo $row['NAMA_UNIT'];?></td>
-                          <td><?php echo $row['NAMA_DOKTER'];?></td>
-                          <td> 
-                            <a href="detail.php?ID<?php echo $row['ID']; ?>">DETAIL |</a>
-                            <a href="input.php?ID<?php echo $row['ID']; ?>">INPUT |</a>
-                            <!-- 
-                            <a href="detail.php?ID<?php echo $row['ID']; ?>" data-toggle="tooltip" title="Edit" class="btn btn-sm btn-warning"> <i class="menu-icon icon-pencil"></i> </a>
-                            <a href="input.php?ID<?php echo $row['ID']; ?>"  data-toggle="tooltip" title="Hapus" class="btn btn-sm btn-danger"> <i class="menu-icon icon-pen"></i> </a> -->
-                          </td>
-                        </tr>
-                        <?php
-                        }
-                        ?>
-                      </tbody>
-                    </table>
+                        <div class="  table">
+                          <table class="table table-striped">
+                            <thead>
+                              <tr>
+                                <th>Nama Tindakan</th>
+                                <th>DPJP</th>
+                                <th>Kategori Tarif</th>
+                                <th>Biaya</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <?php
+                              $billing = mysqli_query($koneksi, "SELECT NAMA_TINDAKAN, NAMA_DOKTER, NAMA_KATEGORI_TARIF, TOTAL_BIAYA FROM billing WHERE NOMED_PASIEN=$NOMED_PASIEN");
+                              while($row = mysqli_fetch_array($billing)) { 
+                              ?>
+                              <tr>
+                              <td><?php echo $row['NAMA_TINDAKAN'];?></td>
+                              <td><?php echo $row['NAMA_DOKTER'];?></td>
+                              <td><?php echo $row['NAMA_KATEGORI_TARIF'];?></td>
+                              <td><?php echo $row['TOTAL_BIAYA'];?></td>
+                              </tr>
+                              <?php 
+                              }
+                              ?>
+                            </tbody>
+                          </table>
+                        </div>
+                        <!-- /.col -->
+                      </div>
+                      <!-- /.row -->
+
+                      <div class="row">
+                        <!-- /.col -->
+                      </div>
+                      <!-- /.row -->
+
+                      <!-- this row will not appear when printing -->
+                      <div class="row no-print">
+                        <div class=" ">
+                          <button class="btn btn-default" onclick="window.print();"><i class="fa fa-print"></i> Print</button>
+                          <a href="inputobat.php?NOMED_PASIEN=<?php echo $result['NOMED_PASIEN'];?>">
+                          <button class="btn btn-success pull-right"><i class="fa fa-data"></i> Obat </button>
+                          <a href="printbilling.php?NOMED_PASIEN=<?php echo $result['NOMED_PASIEN'];?>" target="blank">
+                          <button class="btn btn-primary pull-right" style="margin-right: 5px;"><i class="fa fa-download"></i>  PDF </button>
+                        </div>
+                      </div>
+                    </section>
                   </div>
-                  </div>
+                </div>
               </div>
-            </div>
             </div>
           </div>
         </div>
         <!-- /page content -->
-
         <!-- footer content -->
-       
+        <footer>
+          <div class="pull-right">
+            Gentelella - Bootstrap Admin Template by <a href="https://colorlib.com">Colorlib</a>
+          </div>
+          <div class="clearfix"></div>
+        </footer>
         <!-- /footer content -->
       </div>
     </div>
@@ -289,27 +248,8 @@ include "koneksi.php";
     <script src="../vendors/fastclick/lib/fastclick.js"></script>
     <!-- NProgress -->
     <script src="../vendors/nprogress/nprogress.js"></script>
-    <!-- iCheck -->
-    <script src="../vendors/iCheck/icheck.min.js"></script>
-    <!-- Datatables -->
-    <script src="../vendors/datatables.net/js/jquery.dataTables.min.js"></script>
-    <script src="../vendors/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
-    <script src="../vendors/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
-    <script src="../vendors/datatables.net-buttons-bs/js/buttons.bootstrap.min.js"></script>
-    <script src="../vendors/datatables.net-buttons/js/buttons.flash.min.js"></script>
-    <script src="../vendors/datatables.net-buttons/js/buttons.html5.min.js"></script>
-    <script src="../vendors/datatables.net-buttons/js/buttons.print.min.js"></script>
-    <script src="../vendors/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js"></script>
-    <script src="../vendors/datatables.net-keytable/js/dataTables.keyTable.min.js"></script>
-    <script src="../vendors/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
-    <script src="../vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js"></script>
-    <script src="../vendors/datatables.net-scroller/js/dataTables.scroller.min.js"></script>
-    <script src="../vendors/jszip/dist/jszip.min.js"></script>
-    <script src="../vendors/pdfmake/build/pdfmake.min.js"></script>
-    <script src="../vendors/pdfmake/build/vfs_fonts.js"></script>
 
     <!-- Custom Theme Scripts -->
     <script src="../build/js/custom.min.js"></script>
-
   </body>
 </html>
